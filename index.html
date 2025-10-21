@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>RedDay • Профили + Календарь (PoC)</title>
+<title>RedDay • Календарь (PoC)</title>
 <style>
   :root{--bg:#f5f7fa;--card:#fff;--text:#111827;--muted:#6b7280;--border:#e5e7eb;--brand:#3b82f6;--menses:#ef4444;--pms:#9ca3af;--ov:#111827;--editbg:#eef6ff}
   *{box-sizing:border-box}
@@ -69,7 +69,7 @@
 <div class="container">
   <div class="card">
     <div class="topbar">
-      <div class="title"><span style="font-size:20px">📅</span><h1 style="margin:0;font-size:18px">RedDay • Профили</h1></div>
+      <div class="title"><span style="font-size:20px">📅</span><h1 style="margin:0;font-size:18px">RedDay • Календарь</h1></div>
     </div>
 
     <div class="panel">
@@ -115,11 +115,11 @@
 const $=q=>document.querySelector(q), $$=q=>Array.from(document.querySelectorAll(q));
 const fmtMonth=d=>{const s=new Intl.DateTimeFormat('ru-RU',{month:'long',year:'numeric'}).format(d);return s[0].toUpperCase()+s.slice(1)};
 const fmtDate=d=>new Intl.DateTimeFormat('ru-RU',{day:'2-digit',month:'long'}).format(d);
-const fmtISO=d=>d.toISOString().slice(0,10);
+const fmtISO=d=>{const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');return `${y}-${m}-${day}`};
 const parseISO=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
 const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
 const diffDays=(a,b)=>Math.round((a-b)/86400000);
-const LEN_M=5;const LEN_C=28;const KEY='rd_profiles_simple_v5';
+const LEN_M=5;const LEN_C=28;const KEY='rd_profiles_simple_v6';
 let app=null;let ui={editingId:null};
 function loadApp(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):null}catch{return null}}
 function saveApp(){localStorage.setItem(KEY,JSON.stringify(app))}
